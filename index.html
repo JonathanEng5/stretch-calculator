@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stretch Your Supermarket Spend Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #2b7a0b;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #2b7a0b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #256308;
+        }
+        .output {
+            background: #f0f9f0;
+            border: 1px solid #2b7a0b;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .cta {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .cta a {
+            margin: 0 10px;
+            color: #2b7a0b;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Stretch Your Supermarket Spend Calculator</h1>
+    <p style="text-align: center;">See how much you can save by delaying your supermarket shop with a Good & Fugly box and a little pantry magic!</p>
+
+    <label for="averageSpend">Average Supermarket Spend ($):</label>
+    <input type="number" id="averageSpend" required>
+
+    <label for="daysBetweenShops">Typical Days Between Shops:</label>
+    <input type="number" id="daysBetweenShops" required>
+
+    <label for="daysDelayed">Days You Can Delay Next Shop:</label>
+    <input type="number" id="daysDelayed" required>
+
+    <label>
+        <input type="checkbox" id="usingExtras"> I have pantry items or bought Fugly Extras
+    </label>
+
+    <button onclick="calculateSavings()">Calculate Savings</button>
+
+    <div class="output" id="results" style="display: none;"></div>
+
+    <div class="cta">
+        <a href="https://www.goodandfugly.com.au/collections/fugly-extras" target="_blank">Shop Fugly Extras</a> |
+        <a href="https://saveful.com.au/" target="_blank">Explore Saveful Tips</a>
+    </div>
+
+    <script>
+        function calculateSavings() {
+            var averageSpend = parseFloat(document.getElementById('averageSpend').value);
+            var daysBetween = parseFloat(document.getElementById('daysBetweenShops').value);
+            var daysDelayed = parseFloat(document.getElementById('daysDelayed').value);
+            var usingExtras = document.getElementById('usingExtras').checked;
+
+            if (isNaN(averageSpend) || isNaN(daysBetween) || isNaN(daysDelayed)) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            var dailySpend = averageSpend / daysBetween;
+            var savings = dailySpend * daysDelayed;
+            var annualSavings = savings * (365 / daysBetween);
+
+            var extrasBonus = usingExtras ? 1.1 : 1;
+            savings *= extrasBonus;
+            annualSavings *= extrasBonus;
+
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').innerHTML = `
+                <h2>Results</h2>
+                <p><strong>Immediate Savings:</strong> $${savings.toFixed(2)}</p>
+                <p><strong>Projected Annual Savings:</strong> $${annualSavings.toFixed(2)}</p>
+                <p>By stretching your supermarket spend, you're saving money, reducing food waste, and eating better. Good on you!</p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
