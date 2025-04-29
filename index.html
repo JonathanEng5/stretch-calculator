@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stretch Your Supermarket Spend Calculator</title>
   <style>
     body {
@@ -74,9 +74,6 @@
   <label for="daysDelayed">Days You Can Delay Next Shop:</label>
   <input type="number" id="daysDelayed" required>
 
-  <label for="delayFrequency">How many times per month do you delay your shop?</label>
-  <input type="number" id="delayFrequency" required>
-
   <label>
     <input type="checkbox" id="usingExtras"> I have pantry items or bought Fugly Extras
   </label>
@@ -90,9 +87,34 @@
     <a href="https://saveful.com/" target="_blank">Explore Saveful Tips</a>
   </div>
 
-<script>
-function calculateSavings() {
-  var averageSpend = parseFloat(document.getElementById('averageSpend').value);
-  var daysBetween = parseFloat(document.getElementById('daysBetweenShops').value);
-  var daysDelayed = parseFloat(document.getElementById('daysDelayed').value);
-  var delayFrequency = parseFloat(document.getElementById('delayFrequency').
+  <script>
+    function calculateSavings() {
+      var averageSpend = parseFloat(document.getElementById('averageSpend').value);
+      var daysBetween = parseFloat(document.getElementById('daysBetweenShops').value);
+      var daysDelayed = parseFloat(document.getElementById('daysDelayed').value);
+      var usingExtras = document.getElementById('usingExtras').checked;
+
+      if (isNaN(averageSpend) || isNaN(daysBetween) || isNaN(daysDelayed)) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      var dailySpend = averageSpend / daysBetween;
+      var savings = dailySpend * daysDelayed;
+
+      if (usingExtras) {
+        savings *= 1.1; // 10% boost
+      }
+
+      var results = document.getElementById('results');
+      results.style.display = 'block';
+      results.innerHTML = `
+        <h2>Estimated Savings</h2>
+        <p>If you delay your next supermarket shop by <strong>${daysDelayed}</strong> day(s), you could save about <strong>$${savings.toFixed(2)}</strong>.</p>
+        <p>And if you're using pantry items or Fugly Extras — even better!</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
