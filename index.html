@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stretch Your Supermarket Spend Calculator</title>
   <style>
     body {
@@ -101,17 +101,20 @@
 
       var dailySpend = averageSpend / daysBetween;
       var savings = dailySpend * daysDelayed;
-
       if (usingExtras) {
-        savings *= 1.1; // 10% boost
+        savings *= 1.1;
       }
+
+      var conservativeFrequency = 17; // e.g., once every 3 weeks
+      var projectedAnnualSavings = savings * conservativeFrequency;
 
       var results = document.getElementById('results');
       results.style.display = 'block';
       results.innerHTML = `
         <h2>Estimated Savings</h2>
-        <p>If you delay your next supermarket shop by <strong>${daysDelayed}</strong> day(s), you could save about <strong>$${savings.toFixed(2)}</strong>.</p>
-        <p>And if you're using pantry items or Fugly Extras — even better!</p>
+        <p><strong>Per Delay:</strong> $${savings.toFixed(2)}</p>
+        <p><strong>Projected Annual Savings:</strong> ~$${projectedAnnualSavings.toFixed(2)} (based on delaying your shop 17 times/year)</p>
+        <p>You're making a real difference — saving money and fighting food waste at the same time!</p>
       `;
     }
   </script>
