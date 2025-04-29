@@ -81,7 +81,7 @@
     <input type="checkbox" id="usingExtras"> I have pantry items or bought Fugly Extras
   </label>
 
-  <button id="calculateButton">Calculate Savings</button>
+  <button onclick="calculateSavings()">Calculate Savings</button>
 
   <div class="output" id="results"></div>
 
@@ -91,40 +91,8 @@
   </div>
 
 <script>
-document.getElementById("calculateButton").addEventListener("click", function() {
+function calculateSavings() {
   var averageSpend = parseFloat(document.getElementById('averageSpend').value);
   var daysBetween = parseFloat(document.getElementById('daysBetweenShops').value);
   var daysDelayed = parseFloat(document.getElementById('daysDelayed').value);
-  var delayFrequency = parseFloat(document.getElementById('delayFrequency').value);
-  var usingExtras = document.getElementById('usingExtras').checked;
-
-  if (isNaN(averageSpend) || isNaN(daysBetween) || isNaN(daysDelayed) || isNaN(delayFrequency)) {
-    alert('Please fill in all fields.');
-    return;
-  }
-
-  var dailySpend = averageSpend / daysBetween;
-  var savingsPerEvent = dailySpend * daysDelayed;
-  var monthlySavings = savingsPerEvent * delayFrequency;
-  var annualSavings = monthlySavings * 12;
-
-  if (usingExtras) {
-    savingsPerEvent *= 1.1;
-    monthlySavings *= 1.1;
-    annualSavings *= 1.1;
-  }
-
-  var results = document.getElementById('results');
-  results.style.display = 'block';
-  results.innerHTML = `
-    <h2>Results</h2>
-    <p><strong>Savings Each Time You Delay:</strong> $${savingsPerEvent.toFixed(2)}</p>
-    <p><strong>Estimated Monthly Savings:</strong> $${monthlySavings.toFixed(2)}</p>
-    <p><strong>Projected Annual Savings:</strong> $${annualSavings.toFixed(2)}</p>
-    <p>By stretching your supermarket spend, you're saving money, reducing food waste, and eating better. Good on you!</p>
-  `;
-});
-</script>
-
-</body>
-</html>
+  var delayFrequency = parseFloat(document.getElementById('delayFrequency').
